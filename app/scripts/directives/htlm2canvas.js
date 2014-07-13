@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mongemadreApp')
-  .directive('htlm2canvas', function ($timeout, facebookService) {
+  .directive('htlm2canvas', function ($timeout) {
     return {
       templateUrl: 'views/cedula.html',
       restrict: 'E',

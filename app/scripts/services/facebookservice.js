@@ -8,28 +8,35 @@
  * Factory in the mongemadreApp.
  */
 angular.module('mongemadreApp')
-  .factory('facebookService', function ($q, FIREBASEURL,FBUSERID) {
+  .factory('facebookService', function ($q, FIREBASEURL,FBUSERID,FBAPPID) {
     // Public API here
+
+    var facebookLogin = function(userid,accessToken){
+      FBUSERID = {
+        id:userid,
+        accessToken:accessToken
+      };
+      FB.api('/me',function(responseMe){
+        var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+userid);
+        mongeMadreUserRef.set(responseMe);
+      });
+    };
+
     return {
       login: function () {
         FB.login(function(response) {
-          FBUSERID = {
-            id:response.authResponse.userID,
-            accessToken:response.authResponse.accesToken
-          };
-          FB.api('/me',function(responseMe){
-            var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+response.authResponse.userID);
-            mongeMadreUserRef.set(responseMe);
-          });
+          facebookLogin(
+            response.authResponse.userID,
+            response.authResponse.accesToken
+          );
         }, {scope: 'email,public_profile,user_friends,publish_actions,publish_stream'});
-        /*auth.login('facebook',{
-          rememberMe: true,
-          scope: 'email,public_profile,user_friends,publish_stream,publish_actions',
-          accessToken:FBUSERID.accessToken
-        });*/
       },
       logout:function (){
-        //auth.logout();
+        var deferred = $q.defer();
+        FB.logout(function(response) {
+          deferred.resolve(response);
+        });
+        return deferred.promise;
       },
       getPictureURL: function (height,width){
         var deferred = $q.defer();
@@ -64,6 +71,43 @@ angular.module('mongemadreApp')
               }
             }
           );
+        });
+      },
+      init: function(){
+
+        var loginDetectedFunction = function(response){
+          if(response.status === 'connected'){
+            facebookLogin(
+              response.authResponse.userID,
+              response.authResponse.accessToken
+            );
+
+            /*
+            if($location.path().indexOf('location')===-1){
+              $rootScope.$apply(function(){
+                $location.path('/main');
+              });
+            }*/
+          } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+          } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+          }
+        };
+
+        FB.init({
+          appId: FBAPPID,
+          version    : 'v2.0',
+          cookie: true,
+          xfbml: true
+        });
+        FB.Event.subscribe('auth.statusChange', function(response) {
+          loginDetectedFunction(response);
+        });
+
+        FB.getLoginStatus(function(response) {
+          loginDetectedFunction(response);
         });
       }
     };
