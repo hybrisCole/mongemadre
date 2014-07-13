@@ -13,6 +13,7 @@
     "angular-route": "1.2.16",
     "html2canvas": "~0.4.1",
     "firebase": "1.0.17",
+    "firebase-simple-login":"1.6.1",
     "firebase-angular": "https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js",
     "lodash": "2.4.1"
   },
