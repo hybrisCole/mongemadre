@@ -17,8 +17,8 @@ angular.module('mongemadreApp')
         // an error occurred while attempting login
         console.log(error);
       } else if (user) {
-        // user authenticated with Firebase
-        console.log(user);
+        var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+user.id);
+        mongeMadreUserRef.set(user);
       } else {
         // user is logged out
       }

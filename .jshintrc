@@ -22,6 +22,7 @@
     "angular": false,
     "html2canvas":false,
     "Firebase":false,
-    "FirebaseSimpleLogin":false
+    "FirebaseSimpleLogin":false,
+    "FB":false
   }
 }

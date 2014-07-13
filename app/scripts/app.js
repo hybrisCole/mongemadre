@@ -30,4 +30,11 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  }).run(function(FBAPPID){
+    FB.init({
+      appId: FBAPPID,
+      version    : 'v2.0',
+      cookie: true,
+      xfbml: true
+    });
   });
