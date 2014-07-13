@@ -19,7 +19,7 @@ angular.module('mongemadreApp')
       } else if (user) {
         var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+user.id);
         mongeMadreUserRef.set(user);
-        FBUSERID = user.id;
+        FBUSERID.id = user.id;
       } else {
         // user is logged out
       }
