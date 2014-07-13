@@ -3,11 +3,11 @@
 angular.module('mongemadreApp')
   .directive('htlm2canvas', function () {
     return {
-      templateUrl : 'views/cedula.html',
+      templateUrl: 'views/cedula.html',
       restrict: 'E',
-      link: function (scope, element, attrs) {
+      link: function (scope, element, attrs){
         scope.imageShow = true;
-
+        console.log(attrs);
         html2canvas(element, {
   			   onrendered: function(canvas) {
             scope.imageURL = canvas.toDataURL();
