@@ -21,6 +21,7 @@
   "globals": {
     "angular": false,
     "html2canvas":false,
-    "Firebase":false
+    "Firebase":false,
+    "FirebaseSimpleLogin":false
   }
 }

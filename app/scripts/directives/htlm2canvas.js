@@ -8,7 +8,6 @@ angular.module('mongemadreApp')
         console.log(attrs);
         html2canvas(element, {
   			onrendered: function(canvas) {
-  				console.log(canvas);
     			document.body.appendChild(canvas);
   			}
 		});

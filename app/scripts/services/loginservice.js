@@ -11,11 +11,28 @@ angular.module('mongemadreApp')
   .factory('loginService', function (FIREBASEURL) {
     var mongeMadreRef =
       new Firebase(FIREBASEURL);
-    console.log(mongeMadreRef);
+    var auth =
+      new FirebaseSimpleLogin(mongeMadreRef, function(error, user) {
+      if (error) {
+        // an error occurred while attempting login
+        console.log(error);
+      } else if (user) {
+        // user authenticated with Firebase
+        console.log(user);
+      } else {
+        // user is logged out
+      }
+    });
     // Public API here
     return {
       login: function () {
-        return '!';
+        auth.login('facebook',{
+          rememberMe: true,
+          scope: 'email,public_profile,user_friends, publish_stream'
+        });
+      },
+      logout:function (){
+        auth.logout();
       }
     };
   });
