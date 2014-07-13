@@ -47,6 +47,16 @@ angular.module('mongemadreApp')
           }
         });
         return deferred.promise;
+      },
+      compartirMadreMonge: function(){
+        FB.ui({
+          method: 'feed',
+          link: 'https://www.google.com/?gws_rd=ssl',
+          caption: 'An example caption'
+        }, function(response){
+          console.log('!!!!');
+          console.log(response);
+        });
       }
     };
   });

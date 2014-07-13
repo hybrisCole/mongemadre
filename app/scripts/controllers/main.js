@@ -20,6 +20,6 @@ angular.module('mongemadreApp')
       });
     };
     $scope.compartirMadreNombre = function(){
-      console.log('!');
+      facebookService.compartirMadreMonge();
     };
   });
