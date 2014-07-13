@@ -8,4 +8,4 @@
  * Value in the mongemadreApp.
  */
 angular.module('mongemadreApp')
-  .value('FBUSERID', {id:-1});
+  .value('FBUSERID', {id:-1,accessToken:'-1'});

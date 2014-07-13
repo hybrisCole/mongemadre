@@ -20,7 +20,10 @@ angular.module('mongemadreApp')
         } else if (user) {
           var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+user.id);
           mongeMadreUserRef.set(user);
-          FBUSERID.id = user.id;
+          FBUSERID = {
+            id:user.id,
+            accessToken:user.accessToken
+          };
         } else {
           // user is logged out
         }
@@ -29,9 +32,14 @@ angular.module('mongemadreApp')
     // Public API here
     return {
       login: function () {
+        console.log(FBUSERID.accessToken);
+        /*FB.login(function(response) {
+          console.log(response);
+        }, {scope: 'email,public_profile,user_friends,publish_actions,publish_stream'});*/
         auth.login('facebook',{
           rememberMe: true,
-          scope: 'email,public_profile,user_friends, publish_stream'
+          scope: 'email,public_profile,user_friends,publish_stream,publish_actions',
+          accessToken:FBUSERID.accessToken
         });
       },
       logout:function (){
@@ -49,14 +57,29 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       compartirMadreMonge: function(){
-        FB.ui({
-          method: 'feed',
-          link: 'https://www.google.com/?gws_rd=ssl',
-          caption: 'An example caption'
-        }, function(response){
-          console.log('!!!!');
-          console.log(response);
+        /* jshint camelcase: false*/
+        var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+FBUSERID.id);
+        mongeMadreUserRef.on('value', function(snapshot) {
+          var data = snapshot.val().thirdPartyUserData,
+            nombreMamaPrimero = data.first_name + ' ' + data.last_name.split(' ').reverse().join().replace(',',' '),
+            mensaje = nombreMamaPrimero + ' cambió sus apellidos, porque #MamáVaPrimero, hacelo vos también!';
+          console.log(mensaje);
         });
+        FB.api(
+            '/me/feed',
+          'POST',
+          {
+            'object': {
+              'message': 'This is a test message'
+            }
+          },
+          function (response) {
+            console.log(response);
+            if (response && !response.error) {
+
+            }
+          }
+        );
       }
     };
   });
