@@ -23,6 +23,7 @@
     "html2canvas":false,
     "Firebase":false,
     "FirebaseSimpleLogin":false,
-    "FB":false
+    "FB":false,
+    "AWS":false
   }
 }
