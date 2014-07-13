@@ -7,6 +7,7 @@ angular.module('mongemadreApp')
       restrict: 'E',
       link: function (scope, element){
         scope.imageShow = true;
+        localStorage.clickcount = '';
         //scope.imageURL  = '';
         var putin = angular.element(element[0].childNodes[0]);
         $timeout(function() {
