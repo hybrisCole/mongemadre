@@ -26,7 +26,7 @@ angular.module('mongemadreApp')
         scope.sendme = function(){
           console.log(localStorage.clickcount);
           mailer.submitForm(localStorage.clickcount);
-        }
+        };
 
 
         //scope.imageURL  = localStorage.clickcount;
