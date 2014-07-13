@@ -7,6 +7,7 @@ angular.module('mongemadreApp')
       link: function (scope, element, attrs) {
         html2canvas(element, {
   			onrendered: function(canvas) {
+  				console.log(canvas);
     			document.body.appendChild(canvas);
   			}
 		});
