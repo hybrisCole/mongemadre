@@ -23,27 +23,27 @@ angular.module('mongemadreApp')
             facebookService.getPictureURL(300,300).then(function(pictureObj){
               scope.imageUrl = pictureObj.data.url;
               console.log(pictureObj);
-              $timeout(function(){
-                html2canvas(document.body,{
-                  onrendered: function(canvas){
-                    console.log(canvas);
-                    document.body.appendChild(canvas);
-                    var params = {
-                      Key         : scope.imgName+'.png', 
-                      ContentType : 'image/png', 
-                      Body        : dataURItoBlob(canvas.toDataURL('image/png'))
-                    };
+              html2canvas(putin,{
+                onrendered: function(canvas){
 
-                    bucket.putObject(params, function(err, data) {
-                      if(err){
-                        console.log(err, err.stack);
-                      }else{
-                        console.log(data);
-                      }
-                    });
-                  }
-                });
-              }, 5000);
+                  console.log(canvas);
+                  var params = {
+                    Key         : scope.imgName+'.png', 
+                    ContentType : 'image/png', 
+                    Body        : dataURItoBlob(canvas.toDataURL('image/png'))
+                  };
+
+                  bucket.putObject(params, function(err, data) {
+                    if(err){
+                      console.log(err, err.stack);
+                    }else{
+                      console.log(data);
+                    }
+                  });
+                },
+                logging: true,
+                allowTaint: true
+              });
             },function(error){
               console.log(error);
             });
