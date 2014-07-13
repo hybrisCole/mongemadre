@@ -8,7 +8,7 @@
  * Factory in the mongemadreApp.
  */
 angular.module('mongemadreApp')
-  .factory('loginService', function (FIREBASEURL) {
+  .factory('loginService', function (FIREBASEURL,FBUSERID) {
     var mongeMadreRef =
       new Firebase(FIREBASEURL);
     var auth =
@@ -19,6 +19,7 @@ angular.module('mongemadreApp')
       } else if (user) {
         var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+user.id);
         mongeMadreUserRef.set(user);
+        FBUSERID = user.id;
       } else {
         // user is logged out
       }
