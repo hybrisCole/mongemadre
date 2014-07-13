@@ -11,10 +11,11 @@ angular.module('mongemadreApp')
   .factory('loginService', function (FIREBASEURL) {
     var mongeMadreRef =
       new Firebase(FIREBASEURL);
+    console.log(mongeMadreRef);
     // Public API here
     return {
       login: function () {
-        return meaningOfLife;
+        return '!';
       }
     };
   });

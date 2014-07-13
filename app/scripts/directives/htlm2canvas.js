@@ -5,6 +5,7 @@ angular.module('mongemadreApp')
     return {
       restrict: 'E',
       link: function (scope, element, attrs) {
+        console.log(attrs);
         html2canvas(element, {
   			onrendered: function(canvas) {
   				console.log(canvas);

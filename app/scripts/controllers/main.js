@@ -8,6 +8,6 @@
  * Controller of the mongemadreApp
  */
 angular.module('mongemadreApp')
-  .controller('MainCtrl', function ($scope,loginService) {
-
+  .controller('MainCtrl', function ($scope) {
+    $scope.hola = '';
   });
