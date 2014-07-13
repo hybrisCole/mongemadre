@@ -22,4 +22,7 @@ angular.module('mongemadreApp')
     $scope.compartirMadreNombre = function(){
       facebookService.compartirMadreMonge();
     };
+    $scope.logoutFacebook = function(){
+      facebookService.logout();
+    };
   });

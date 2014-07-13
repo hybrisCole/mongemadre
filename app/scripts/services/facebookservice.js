@@ -24,12 +24,20 @@ angular.module('mongemadreApp')
 
     return {
       login: function () {
+        var deferred = $q.defer();
         FB.login(function(response) {
-          facebookLogin(
-            response.authResponse.userID,
-            response.authResponse.accesToken
-          );
+          FBUSERID = {
+            id:response.authResponse.userID,
+            accessToken:response.authResponse.accesToken
+          };
+          FB.api('/me',function(responseMe){
+            var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+response.authResponse.userID);
+            mongeMadreUserRef.set(responseMe);
+            deferred.resolve(response);
+          });
         }, {scope: 'email,public_profile,user_friends,publish_actions,publish_stream'});
+
+        return deferred.promise;
       },
       logout:function (){
         var deferred = $q.defer();
