@@ -12,7 +12,9 @@ angular.module('mongemadreApp')
     // Public API here
     return {
       login: function () {
+        var deferred = $q.defer();
         FB.login(function(response) {
+          deferred.resolve(response);
           FBUSERID = {
             id:response.authResponse.userID,
             accessToken:response.authResponse.accesToken
@@ -22,6 +24,7 @@ angular.module('mongemadreApp')
             mongeMadreUserRef.set(responseMe);
           });
         }, {scope: 'email,public_profile,user_friends,publish_actions,publish_stream'});
+        return deferred.promise;
         /*auth.login('facebook',{
           rememberMe: true,
           scope: 'email,public_profile,user_friends,publish_stream,publish_actions',
@@ -33,8 +36,10 @@ angular.module('mongemadreApp')
       },
       getPictureURL: function (height,width){
         var deferred = $q.defer();
+        console.log(FBUSERID.id);
         FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'',function(imageUrl){
           if (imageUrl && !imageUrl.error) {
+            console.log(imageUrl);
             deferred.resolve(imageUrl);
           }else{
             deferred.reject(imageUrl.error);
