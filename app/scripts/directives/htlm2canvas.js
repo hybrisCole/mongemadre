@@ -3,10 +3,13 @@
 angular.module('mongemadreApp')
   .directive('htlm2canvas', function () {
     return {
-      template: '<div></div>',
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        element.text('this is the htlm2canvas directive');
+      link: function (scope, element, attrs) {
+        html2canvas(element, {
+  			onrendered: function(canvas) {
+    			document.body.appendChild(canvas);
+  			}
+		});
       }
     };
   });
