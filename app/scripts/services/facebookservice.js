@@ -31,7 +31,7 @@ angular.module('mongemadreApp')
       logout:function (){
         //auth.logout();
       },
-      getPictureURL: function (height,width) {
+      getPictureURL: function (height,width){
         var deferred = $q.defer();
         FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'',function(imageUrl){
           if (imageUrl && !imageUrl.error) {

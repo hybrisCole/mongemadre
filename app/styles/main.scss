@@ -1,2 +1,47 @@
 // bower:scss
 // endbower
+body{
+	padding     : 0;
+	margin      : 0;  
+	font-family : helvetica; 
+}
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+.left{
+	float : left;
+}
+.right{
+	float : right;
+}
+.head{
+	background-color : #9cbc27;
+	height           : 50px; 
+	.container{
+		padding-top : 12px; 
+		p{
+			padding   : 0;
+			font-size : 23px;
+			color     : #fff;  
+			margin    : 0; 
+		}
+	}
+}
+.container{
+	width  : 760px;
+	margin : 0 auto; 
+}
