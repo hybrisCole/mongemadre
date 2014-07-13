@@ -9,37 +9,31 @@
  */
 angular.module('mongemadreApp')
   .factory('facebookService', function ($q, FIREBASEURL,FBUSERID) {
-
-    var mongeMadreRef =
-      new Firebase(FIREBASEURL);
-    var auth =
-      new FirebaseSimpleLogin(mongeMadreRef, function(error, user) {
-        if (error) {
-          // an error occurred while attempting login
-          console.log(error);
-        } else if (user) {
-          var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+user.id);
-          mongeMadreUserRef.set(user);
-          FBUSERID.id = user.id;
-        } else {
-          // user is logged out
-        }
-      });
-
     // Public API here
     return {
       login: function () {
-        auth.login('facebook',{
+        FB.login(function(response) {
+          FBUSERID = {
+            id:response.authResponse.userID,
+            accessToken:response.authResponse.accesToken
+          };
+          FB.api('/me',function(responseMe){
+            var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+response.authResponse.userID);
+            mongeMadreUserRef.set(responseMe);
+          });
+        }, {scope: 'email,public_profile,user_friends,publish_actions,publish_stream'});
+        /*auth.login('facebook',{
           rememberMe: true,
-          scope: 'email,public_profile,user_friends, publish_stream'
-        });
+          scope: 'email,public_profile,user_friends,publish_stream,publish_actions',
+          accessToken:FBUSERID.accessToken
+        });*/
       },
       logout:function (){
-        auth.logout();
+        //auth.logout();
       },
-      getPictureURL: function (userId,height,width) {
+      getPictureURL: function (height,width) {
         var deferred = $q.defer();
-        FB.api('/'+userId+'/picture?height='+height+'&width='+width+'',function(imageUrl){
+        FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'',function(imageUrl){
           if (imageUrl && !imageUrl.error) {
             deferred.resolve(imageUrl);
           }else{
@@ -49,13 +43,27 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       compartirMadreMonge: function(){
-        FB.ui({
-          method: 'feed',
-          link: 'https://www.google.com/?gws_rd=ssl',
-          caption: 'An example caption'
-        }, function(response){
-          console.log('!!!!');
-          console.log(response);
+        /* jshint camelcase: false*/
+        var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+FBUSERID.id);
+
+        mongeMadreUserRef.on('value', function(snapshot) {
+          var data = snapshot.val(),
+            nombreMamaPrimero = data.first_name + ' ' + data.last_name.split(' ').reverse().join().replace(',',' '),
+            mensaje = nombreMamaPrimero + ' cambió sus apellidos, porque #MamáVaPrimero, hacelo vos también!';
+          FB.api(
+            '/me/feed',
+            'POST',
+            {
+              'message': mensaje,
+              'link':'https://www.facebook.com/amatistadigitalcr/app_1441805799429811'
+            },
+            function (response) {
+              console.log(response);
+              if (response && !response.error) {
+
+              }
+            }
+          );
         });
       }
     };
