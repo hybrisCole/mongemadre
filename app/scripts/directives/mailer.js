@@ -1,9 +1,10 @@
 'use strict';
 /* jshint camelcase: false*/
 angular.module('mongemadreApp')
-  .factory('mailer', function($http,$q) {
+  .factory('mailer', function($http,$q){
     return {
-      submitForm : function(){
+      submitForm : function(img){
+      	  console.log(img);
           var defer = $q.defer();
           $http({
             method: 'POST',
@@ -16,14 +17,10 @@ angular.module('mongemadreApp')
                   email: 'abdeldw@gmail.com',
                   name: 'Abdel Atencio',
                   type: 'to'
-                }, {
-                  email: 'acpii2005@gmail.com',
-                  name: 'Beto',
-                  type: 'to'
                 }],
                 autotext: 'true',
                 subject: 'Emergencia Rover',
-                html: 'HELP NEEDED!!!!! CARLOZ RAMIREZ'
+                html: '<img src="'+img+'"/>'
               }
             }
           }).success(function (data) {
