@@ -14,25 +14,33 @@ angular.module('mongemadreApp')
     }
     // Public API here
     return {
+      /* jshint camelcase: false*/
       getUsuario: function () {
-        /* jshint camelcase: false*/
         var deferred = $q.defer();
         var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+FBUSERID.id);
         mongeMadreUserRef.on('value', function(snapshot) {
           var data = snapshot.val(),
             apellidos = data.last_name.split(' ');
-          if(_.isUndefined(apellidos[1])){
-            apellidos[1] = '';
-          }
+            apellidos = data.last_name.split(' ');
           deferred.resolve({
-            cedula:'',
+            cedula:data.cedula || '',
             nombre:data.first_name,
             primerApellido:apellidos[0],
-            segundoApellido:apellidos[1],
-            correoElectronico:data.email
+            segundoApellido:data.segundoApellido || apellidos[1] || '',
+            correoElectronico:data.email || ''
           });
         });
         return deferred.promise;
+      },
+      actualizarUsuario:function(usuario){
+        var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+FBUSERID.id);
+        mongeMadreUserRef.on('value', function(snapshot) {
+          var data = snapshot.val();
+          data.cedula = usuario.cedula;
+          data.segundoApellido = usuario.segundoApellido;
+          data.email = usuario.correoElectronico;
+          mongeMadreUserRef.update(data);
+        });
       }
     };
   });

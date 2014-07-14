@@ -8,7 +8,7 @@
  * Factory in the mongemadreApp.
  */
 angular.module('mongemadreApp')
-  .factory('facebookService', function ($q, $location,FIREBASEURL,FBUSERID,FBAPPID) {
+  .factory('facebookService', function ($q, $location,firebaseService,FIREBASEURL,FBUSERID,FBAPPID) {
     // Public API here
 
     var facebookLogin = function(userId,accessToken){
@@ -16,9 +16,15 @@ angular.module('mongemadreApp')
       FBUSERID.set(userId,accessToken);
       FB.api('/me',function(responseMe){
         if (responseMe && !responseMe.error) {
-          var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+userId);
-          mongeMadreUserRef.set(responseMe);
-          deferred.resolve(responseMe);
+          firebaseService.getUsuario().then(function(usuario){
+            //si no tiene cedula, es porque no se ha registrado,
+            // solo en ese caso se guarda
+            if(usuario.cedula===''){
+              var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+userId);
+              mongeMadreUserRef.set(responseMe);
+            }
+            deferred.resolve(responseMe);
+          });
         }else{
           deferred.reject(responseMe);
         }
@@ -33,9 +39,15 @@ angular.module('mongemadreApp')
             FBUSERID.set(response.authResponse.userID,response.authResponse.accesToken);
             FB.api('/me',function(responseMe){
               if (responseMe && !responseMe.error) {
-                var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+response.authResponse.userID);
-                mongeMadreUserRef.set(responseMe);
-                deferred.resolve(response);
+                firebaseService.getUsuario().then(function(usuario){
+                  //si no tiene cedula, es porque no se ha registrado,
+                  // solo en ese caso se guarda
+                  if(usuario.cedula===''){
+                    var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+userId);
+                    mongeMadreUserRef.set(responseMe);
+                  }
+                  deferred.resolve(responseMe);
+                });
               }else{
                 deferred.reject(response);
               }

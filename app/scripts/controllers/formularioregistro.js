@@ -18,6 +18,6 @@ angular.module('mongemadreApp')
       $scope.usuario = data;
     });
     $scope.submitFormMongeMama = function(){
-      console.log('!');
-    }
+      firebaseService.actualizarUsuario($scope.usuario);
+    };
   });
