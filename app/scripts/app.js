@@ -35,10 +35,11 @@ angular
         redirectTo: '/'
       });
   }).run(function($rootScope, $location, facebookService,FBUSERID){
-    facebookService.init();
-    $rootScope.$on('$routeChangeStart',function(){
-      if((FBUSERID.id === -1) && ($location.path() !== '/')){
-        $location.path('/main');
-      }
+    facebookService.init().then(function(){
+      $rootScope.$on('$routeChangeStart',function(){
+        if((FBUSERID.id === -1) && ($location.path() !== '/')){
+          $location.path('/main');
+        }
+      });
     });
   });

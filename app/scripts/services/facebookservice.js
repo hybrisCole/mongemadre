@@ -98,12 +98,14 @@ angular.module('mongemadreApp')
         });
       },
       init: function(){
-        var loginDetectedFunction = function(response){
+        var deferred = $q.defer(),
+          loginDetectedFunction = function(response){
           if(response.status === 'connected'){
             facebookLogin(
               response.authResponse.userID,
               response.authResponse.accessToken
             ).then(function(){
+                deferred.resolve();
                 $location.path('/formularioRegistro');
             });
           } else if (response.status === 'not_authorized') {
@@ -127,6 +129,7 @@ angular.module('mongemadreApp')
         FB.getLoginStatus(function(response) {
           loginDetectedFunction(response);
         });
+        return deferred.promise;
       }
     };
   });
