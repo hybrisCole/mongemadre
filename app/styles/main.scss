@@ -68,7 +68,7 @@ body{
 		margin-bottom : 15px; 
 	}
 	.mongeForm{
-		margin-left : 25px; 
+		margin-left : 20px; 
 		input{
 			border       : 1px solid #9cbc27;
 			height       : 30px; 
@@ -81,4 +81,9 @@ body{
 			font-size : 22px; 
 		}
 	} 
+}
+.bottom-form{
+	.errors{
+		margin-left : 20px; 
+	}
 }

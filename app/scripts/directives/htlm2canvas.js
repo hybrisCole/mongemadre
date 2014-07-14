@@ -16,40 +16,33 @@ angular.module('mongemadreApp')
         });
 
         var bucket  = new AWS.S3({params: {Bucket:'blaksun'}});
-        
-        facebookService.login().then(function(data){
-          if(data.status === 'connected'){
-            facebookService.getPictureURL(300,300).then(function(pictureObj){
-              scope.imageUrl = pictureObj.data.url;
+            
+        facebookService.getPictureURL(300,300).then(function(pictureObj){
+          scope.imageUrl = pictureObj.data.url;
+          html2canvas(putin,{
+            onrendered: function(canvas){
+              var params = {
+                Key         : scope.imgName+'.png', 
+                ContentType : 'image/png', 
+                Body        : dataURItoBlob(canvas.toDataURL('image/png'))
+              };
 
-              html2canvas(putin,{
-                onrendered: function(canvas){
-
-                  console.log(canvas);
-                  var params = {
-                    Key         : scope.imgName+'.png', 
-                    ContentType : 'image/png', 
-                    Body        : dataURItoBlob(canvas.toDataURL('image/png'))
-                  };
-
-                  bucket.putObject(params, function(err, data) {
-                    if(err){
-                      console.log(err, err.stack);
-                    }else{
-                      console.log(data);
-                    }
-                  });
-                },
-                logging: true,
-                allowTaint: true,
-                useCORS : true,
-                proxy : 'proxy.php'
+              bucket.putObject(params, function(err, data){
+                if(err){
+                  console.log(err, err.stack);
+                }else{
+                  console.log(data);
+                }
               });
-            },function(error){
-              console.log(error);
-            });
-          }
-        });
+            },
+            logging: true,
+            allowTaint: true,
+            useCORS : true,
+            proxy : 'proxy.php'
+          });
+        },function(error){
+        console.log(error);
+      });
         
         //convert dataURI into a file https://developer.mozilla.org/en-US/docs/Web/API/Blob
         function dataURItoBlob(dataURI){
