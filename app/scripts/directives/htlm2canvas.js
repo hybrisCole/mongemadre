@@ -20,14 +20,7 @@ angular.module('mongemadreApp')
         facebookService.login().then(function(data){
           if(data.status === 'connected'){
             facebookService.getPictureURL(300,300).then(function(pictureObj){
-              //scope.imageUrl = pictureObj.data.url;
-
-              convertImgToBase64(pictureObj.data.url, function(base64Img){
-                scope.imageUrl = base64Img;
-                console.log(scope.imageUrl);
-
-                element[0].childNodes[2].childNodes[1].src = base64Img;
-              });
+              scope.imageUrl = pictureObj.data.url;
 
               html2canvas(putin,{
                 onrendered: function(canvas){
@@ -75,22 +68,22 @@ angular.module('mongemadreApp')
           return new Blob([new Uint8Array(content)], {type: mimestring});
         }
 
-        function convertImgToBase64(url, callback, outputFormat){
-    var canvas = document.createElement('CANVAS'),
-        ctx = canvas.getContext('2d'),
-        img = new Image();
-    img.crossOrigin = 'Anonymous';
-    img.onload = function(){
-        var dataURL;
-        canvas.height = img.height;
-        canvas.width = img.width;
-        ctx.drawImage(img, 0, 0);
-        dataURL = canvas.toDataURL(outputFormat);
-        callback.call(this, dataURL);
-        canvas = null; 
-    };
-    img.src = url;
-}
+        /*function convertImgToBase64(url, callback, outputFormat){
+          var canvas = document.createElement('CANVAS'),
+              ctx = canvas.getContext('2d'),
+              img = new Image();
+              img.crossOrigin = 'Anonymous';
+          img.onload = function(){
+            var dataURL;
+            canvas.height = img.height;
+            canvas.width = img.width;
+            ctx.drawImage(img, 0, 0);
+            dataURL = canvas.toDataURL(outputFormat);
+            callback.call(this, dataURL);
+           canvas = null; 
+          };
+          img.src = url;
+        }*/
       }
     };
   });

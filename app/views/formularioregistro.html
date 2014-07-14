@@ -1,8 +1,37 @@
-<form name="formMongeMama">
-  Cedula <input type="text" ng-model="usuario.cedula" required/> <br />
-  Nombre <input type="text" ng-model="usuario.nombre"  required/> <br />
-  Primer Apellido <input type="text" ng-model="usuario.primerApellido"  required/> <br />
-  Segundo Apellido <input type="text" ng-model="usuario.segundoApellido"  required/> <br />
-  Correo Electronico <input type="email" ng-model="usuario.correoElectronico"  required/>
+<div class="cf info">
+	<div class="left">
+		<htlm2canvas></htlm2canvas>
+	</div>
+	<div class="left">
+		<form name="formMongeMama">
+			<table class="mongeForm">
+				<tr>
+					<td class="title">Cédula</td>
+					<td class="title">:</td>
+					<td><input type="text" ng-model="usuario.cedula" required/></td>
+				</tr>
+				<tr>
+					<td class="title">Nombre</td>
+					<td class="title">:</td>
+					<td><input type="text" ng-model="usuario.nombre"  required/></td>
+				</tr>
+				<tr>
+					<td class="title">Primer Apellido</td>
+					<td class="title">:</td>
+					<td><input type="text" ng-model="usuario.primerApellido"  required/></td>
+				</tr>
+				<tr>
+					<td class="title">Segundo Apellido</td>
+					<td class="title">:</td>
+					<td><input type="text" ng-model="usuario.segundoApellido"  required/></td>
+				</tr>
+				<tr>
+					<td class="title">Correo Electrónico</td>
+					<td class="title">:</td>
+					<td><input type="email" ng-model="usuario.correoElectronico"  required/></td>
+				</tr>
+			</table>
 </form>
+	</div>
+</div>
 {{formMongeMama | json}}
