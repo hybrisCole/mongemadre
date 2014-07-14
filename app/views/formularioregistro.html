@@ -1,4 +1,4 @@
-<form name="formMongeMama">
+<form name="formMongeMama" ng-submit="submitFormMongeMama()">
   Cedula <input type="text" ng-pattern="/^\d{9}$/" name="cedula" ng-model="usuario.cedula" required/> <br />
   Nombre <input type="text" name="nombre" ng-model="usuario.nombre"  required/> <br />
   Primer Apellido <input type="text" name="primerApellido" ng-model="usuario.primerApellido"  required/> <br />
@@ -12,5 +12,6 @@
   <span ng-show="formMongeMama.segundoApellido.$error.required">El Segundo Apellido es requerido.</span> <br />
   <span ng-show="formMongeMama.correoElectronico.$error.required">El Correo Electronico es requerido.</span> <br />
   <span ng-show="formMongeMama.correoElectronico.$error.email">El Correo Electronico esta en un formato incorrecto. Ejemplo: usuario@monge.com</span> <br />
+  <button ng-click="formMongeMama.submit();">Submit</button>
 </form>
 {{formMongeMama.correoElectronico.$error | json}}

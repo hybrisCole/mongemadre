@@ -33,7 +33,6 @@ angular.module('mongemadreApp')
           });
         });
         return deferred.promise;
-        //nombreMamaPrimero = data.first_name + ' ' + data.last_name.split(' ').reverse().join().replace(',',' '),
       }
     };
   });

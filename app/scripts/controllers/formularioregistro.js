@@ -17,4 +17,7 @@ angular.module('mongemadreApp')
     firebaseService.getUsuario().then(function(data){
       $scope.usuario = data;
     });
+    $scope.submitFormMongeMama = function(){
+      console.log('!');
+    }
   });
