@@ -8,11 +8,7 @@
  * Controller of the mongemadreApp
  */
 angular.module('mongemadreApp')
-  .controller('FormularioregistroCtrl', function ($scope,$location,FBUSERID) {
-    console.log(FBUSERID.id);
-    if(FBUSERID.id === -1){
-      $location.path('/main');
-    }
+  .controller('FormularioregistroCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

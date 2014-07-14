@@ -90,25 +90,20 @@ angular.module('mongemadreApp')
               'link':'https://www.facebook.com/amatistadigitalcr/app_1441805799429811'
             },
             function (response) {
-              console.log(response);
               if (response && !response.error) {
-
+                console.log(response);
               }
             }
           );
         });
       },
       init: function(){
-
         var loginDetectedFunction = function(response){
-          console.log(response.status);
           if(response.status === 'connected'){
             facebookLogin(
               response.authResponse.userID,
               response.authResponse.accessToken
-            ).then(function(data){
-                console.log(data);
-                console.log(FBUSERID);
+            ).then(function(){
                 $location.path('/formularioRegistro');
             });
           } else if (response.status === 'not_authorized') {
