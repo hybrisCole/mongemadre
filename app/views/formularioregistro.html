@@ -7,5 +7,10 @@
   errores <br />
   <span ng-show="formMongeMama.cedula.$error.required">La Cedula es requerida.</span> <br />
   <span ng-show="formMongeMama.cedula.$error.pattern">Formato incorrecto. Ejemplo de cedula correcta: 102340567.</span> <br />
+  <span ng-show="formMongeMama.nombre.$error.required">El nombre es requerido.</span> <br />
+  <span ng-show="formMongeMama.primerApellido.$error.required">El Primer Apellido es requerido.</span> <br />
+  <span ng-show="formMongeMama.segundoApellido.$error.required">El Segundo Apellido es requerido.</span> <br />
+  <span ng-show="formMongeMama.correoElectronico.$error.required">El Correo Electronico es requerido.</span> <br />
+  <span ng-show="formMongeMama.correoElectronico.$error.email">El Correo Electronico esta en un formato incorrecto. Ejemplo: usuario@monge.com</span> <br />
 </form>
-{{formMongeMama.cedula.$error | json}}
+{{formMongeMama.correoElectronico.$error | json}}
