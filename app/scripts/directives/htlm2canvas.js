@@ -5,9 +5,9 @@ angular.module('mongemadreApp')
     return {
       templateUrl: 'views/cedula.html',
       restrict: 'E',
-      link: function (scope){
+      link: function (scope, element){
         scope.imageShow = true;
-        //var putin = angular.element(element[0].childNodes[2]);
+        var putin = angular.element(element[0].childNodes[2]);
         scope.imageUrl = '';
 
         AWS.config.update({
@@ -31,23 +31,24 @@ angular.module('mongemadreApp')
             imageObj2.onload = function() {
               ctx.drawImage(imageObj2, 15, 85, 180, 180);
               var img = c.toDataURL('image/png');
-              document.body.appendChild('<img src="' + img + '" width="328" height="526"/>');
+              //document.write('<img src="' + img + '" width="328" height="526"/>');
             };
           };
-          
-          var params = {
-            Key         : scope.imgName+'.png', 
-            ContentType : 'image/png', 
-            Body        : dataURItoBlob(c.toDataURL('image/png'))
-          };
 
-          bucket.putObject(params, function(err, data){
-            if(err){
-              console.log(err, err.stack);
-            }else{
-              console.log(data);
-            }
-          });
+
+         var params = {
+                Key         : scope.imgName+'.png', 
+                ContentType : 'image/png', 
+                Body        : dataURItoBlob(c.toDataURL('image/png'))
+              };
+
+              bucket.putObject(params, function(err, data){
+                if(err){
+                  console.log(err, err.stack);
+                }else{
+                  console.log(data);
+                }
+              });
         },function(error){
         console.log(error);
       });
