@@ -27,9 +27,19 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      .when('/formularioRegistro', {
+        templateUrl: 'views/formularioregistro.html',
+        controller: 'FormularioregistroCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-  }).run(function(facebookService){
-    facebookService.init();
+  }).run(function($rootScope, $location, facebookService,FBUSERID){
+    facebookService.init().then(function(){
+      $rootScope.$on('$routeChangeStart',function(){
+        if((FBUSERID.id === -1) && ($location.path() !== '/')){
+          $location.path('/main');
+        }
+      });
+    });
   });

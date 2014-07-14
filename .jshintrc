@@ -24,6 +24,7 @@
     "Firebase":false,
     "FirebaseSimpleLogin":false,
     "FB":false,
-    "AWS":false
+    "AWS":false,
+    "_":false
   }
 }

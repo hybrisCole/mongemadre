@@ -1,0 +1,8 @@
+<form name="formMongeMama">
+  Cedula <input type="text" ng-model="usuario.cedula" required/> <br />
+  Nombre <input type="text" ng-model="usuario.nombre"  required/> <br />
+  Primer Apellido <input type="text" ng-model="usuario.primerApellido"  required/> <br />
+  Segundo Apellido <input type="text" ng-model="usuario.segundoApellido"  required/> <br />
+  Correo Electronico <input type="email" ng-model="usuario.correoElectronico"  required/>
+</form>
+{{formMongeMama | json}}

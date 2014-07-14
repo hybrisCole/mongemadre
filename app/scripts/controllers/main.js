@@ -8,9 +8,11 @@
  * Controller of the mongemadreApp
  */
 angular.module('mongemadreApp')
-  .controller('MainCtrl', function ($scope,facebookService) {
+  .controller('MainCtrl', function ($scope,$location,facebookService) {
     $scope.loginFacebook = function(){
-      facebookService.login();
+      facebookService.login().then(function(){
+        $location.path('/formularioRegistro');
+      });
     };
     $scope.userid = function(){
       facebookService.getPictureURL(300,300).then(function(pictureObj){
