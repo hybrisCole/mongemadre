@@ -27,6 +27,10 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      .when('/formularioRegistro', {
+        templateUrl: 'views/formularioregistro.html',
+        controller: 'FormularioregistroCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

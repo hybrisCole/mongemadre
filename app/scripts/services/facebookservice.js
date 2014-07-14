@@ -8,42 +8,59 @@
  * Factory in the mongemadreApp.
  */
 angular.module('mongemadreApp')
-  .factory('facebookService', function ($q, FIREBASEURL,FBUSERID,FBAPPID) {
+  .factory('facebookService', function ($q, $location,FIREBASEURL,FBUSERID,FBAPPID) {
     // Public API here
 
-    var facebookLogin = function(userid,accessToken){
-      FBUSERID = {
-        id:userid,
-        accessToken:accessToken
-      };
+    var facebookLogin = function(userId,accessToken){
+      var deferred = $q.defer();
+      FBUSERID.set(userId,accessToken);
       FB.api('/me',function(responseMe){
-        var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+userid);
-        mongeMadreUserRef.set(responseMe);
+        if (responseMe && !responseMe.error) {
+          var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+userId);
+          mongeMadreUserRef.set(responseMe);
+          deferred.resolve(responseMe);
+        }else{
+          deferred.reject(responseMe);
+        }
       });
+      return deferred.promise;
     };
-
     return {
       login: function () {
         var deferred = $q.defer();
         FB.login(function(response) {
-          FBUSERID = {
-            id:response.authResponse.userID,
-            accessToken:response.authResponse.accesToken
-          };
-          FB.api('/me',function(responseMe){
-            var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+response.authResponse.userID);
-            mongeMadreUserRef.set(responseMe);
-            deferred.resolve(response);
-          });
+          if (response && !response.error) {
+            FBUSERID.set(response.authResponse.userID,response.authResponse.accesToken);
+            FB.api('/me',function(responseMe){
+              if (responseMe && !responseMe.error) {
+                var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+response.authResponse.userID);
+                mongeMadreUserRef.set(responseMe);
+                deferred.resolve(response);
+              }else{
+                deferred.reject(response);
+              }
+            });
+          }else{
+            deferred.reject(response);
+          }
         }, {scope: 'email,public_profile,user_friends,publish_actions,publish_stream'});
-
         return deferred.promise;
       },
       logout:function (){
         var deferred = $q.defer();
-        FB.logout(function(response) {
-          deferred.resolve(response);
+        FB.getLoginStatus(function(response) {
+          if (response && response.status === 'connected') {
+            FB.logout(function(response) {
+              if (response && !response.error) {
+                deferred.resolve(response);
+                document.location.reload();
+              }else{
+                deferred.reject(response);
+              }
+            });
+          }
         });
+
         return deferred.promise;
       },
       getPictureURL: function (height,width){
@@ -84,18 +101,16 @@ angular.module('mongemadreApp')
       init: function(){
 
         var loginDetectedFunction = function(response){
+          console.log(response.status);
           if(response.status === 'connected'){
             facebookLogin(
               response.authResponse.userID,
               response.authResponse.accessToken
-            );
-
-            /*
-            if($location.path().indexOf('location')===-1){
-              $rootScope.$apply(function(){
-                $location.path('/main');
-              });
-            }*/
+            ).then(function(data){
+                console.log(data);
+                console.log(FBUSERID);
+                $location.path('/formularioRegistro');
+            });
           } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
           } else {
