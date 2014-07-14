@@ -1,5 +1,8 @@
-Cedula <input type="text" ng-model="usuario.cedula"/> <br />
-Nombre <input type="text" ng-model="usuario.nombre"/> <br />
-Primer Apellido <input type="text" ng-model="usuario.primerApellido"/> <br />
-Segundo Apellido <input type="text" ng-model="usuario.segundoApellido"/> <br />
-Correo Electronico <input type="text" ng-model="usuario.correoElectronico"/>
+<form name="formMongeMama">
+  Cedula <input type="text" ng-model="usuario.cedula" required/> <br />
+  Nombre <input type="text" ng-model="usuario.nombre"  required/> <br />
+  Primer Apellido <input type="text" ng-model="usuario.primerApellido"  required/> <br />
+  Segundo Apellido <input type="text" ng-model="usuario.segundoApellido"  required/> <br />
+  Correo Electronico <input type="email" ng-model="usuario.correoElectronico"  required/>
+</form>
+{{formMongeMama | json}}

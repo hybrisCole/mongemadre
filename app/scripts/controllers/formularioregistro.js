@@ -8,10 +8,13 @@
  * Controller of the mongemadreApp
  */
 angular.module('mongemadreApp')
-  .controller('FormularioregistroCtrl', function ($scope) {
+  .controller('FormularioregistroCtrl', function ($scope,firebaseService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+    firebaseService.getUsuario().then(function(data){
+      $scope.usuario = data;
+    });
   });
