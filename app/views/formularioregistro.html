@@ -8,30 +8,48 @@
 				<tr>
 					<td class="title">Cédula</td>
 					<td class="title">:</td>
-					<td><input type="text" ng-model="usuario.cedula" required/></td>
+					<td>
+						<input type="text" ng-pattern="/^\d{9}$/" name="cedula" ng-model="usuario.cedula" required/>
+					</td>
 				</tr>
 				<tr>
 					<td class="title">Nombre</td>
 					<td class="title">:</td>
-					<td><input type="text" ng-model="usuario.nombre"  required/></td>
+					<td>
+						<input type="text" name="nombre" ng-model="usuario.nombre" required/>
+					</td>
 				</tr>
 				<tr>
 					<td class="title">Primer Apellido</td>
 					<td class="title">:</td>
-					<td><input type="text" ng-model="usuario.primerApellido"  required/></td>
+					<td>
+						<input type="text" name="primerApellido" ng-model="usuario.primerApellido" required/>
+					</td>
 				</tr>
 				<tr>
 					<td class="title">Segundo Apellido</td>
 					<td class="title">:</td>
-					<td><input type="text" ng-model="usuario.segundoApellido"  required/></td>
+					<td><input type="text" name="segundoApellido" ng-model="usuario.segundoApellido" required/></td>
 				</tr>
 				<tr>
 					<td class="title">Correo Electrónico</td>
 					<td class="title">:</td>
-					<td><input type="email" ng-model="usuario.correoElectronico"  required/></td>
+					<td>
+            <input type="email" name="correoElectronico" ng-model="usuario.correoElectronico" required/>
+          </td>
 				</tr>
 			</table>
-</form>
+      <span ng-show="formMongeMama.cedula.$error.required">La Cedula es requerida.</span> <br />
+      <span ng-show="formMongeMama.cedula.$error.pattern">Formato incorrecto. Ejemplo de cedula correcta: 102340567.</span> <br />
+      <span ng-show="formMongeMama.nombre.$error.required">El nombre es requerido.</span> <br />
+      <span ng-show="formMongeMama.primerApellido.$error.required">El Primer Apellido es requerido.</span> <br />
+      <span ng-show="formMongeMama.segundoApellido.$error.required">El Segundo Apellido es requerido.</span> <br />
+      <span ng-show="formMongeMama.correoElectronico.$error.required">El Correo Electronico es requerido.</span> <br />
+      <span ng-show="formMongeMama.correoElectronico.$error.email">El Correo Electronico esta en un formato incorrecto. Ejemplo: usuario@monge.com</span> <br />
+    </form>
 	</div>
 </div>
 {{formMongeMama | json}}
+
+{{formMongeMama.correoElectronico.$error | json}}
+
