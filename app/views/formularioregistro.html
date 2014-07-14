@@ -1,8 +1,11 @@
 <form name="formMongeMama">
-  Cedula <input type="text" ng-model="usuario.cedula" required/> <br />
-  Nombre <input type="text" ng-model="usuario.nombre"  required/> <br />
-  Primer Apellido <input type="text" ng-model="usuario.primerApellido"  required/> <br />
-  Segundo Apellido <input type="text" ng-model="usuario.segundoApellido"  required/> <br />
-  Correo Electronico <input type="email" ng-model="usuario.correoElectronico"  required/>
+  Cedula <input type="text" ng-pattern="/^\d{9}$/" name="cedula" ng-model="usuario.cedula" required/> <br />
+  Nombre <input type="text" name="nombre" ng-model="usuario.nombre"  required/> <br />
+  Primer Apellido <input type="text" name="primerApellido" ng-model="usuario.primerApellido"  required/> <br />
+  Segundo Apellido <input type="text" name="segundoApellido" ng-model="usuario.segundoApellido"  required/> <br />
+  Correo Electronico <input type="email" name="correoElectronico" ng-model="usuario.correoElectronico"  required/><br />
+  errores <br />
+  <span ng-show="formMongeMama.cedula.$error.required">La Cedula es requerida.</span> <br />
+  <span ng-show="formMongeMama.cedula.$error.pattern">Formato incorrecto. Ejemplo de cedula correcta: 102340567.</span> <br />
 </form>
-{{formMongeMama | json}}
+{{formMongeMama.cedula.$error | json}}
