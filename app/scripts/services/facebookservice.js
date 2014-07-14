@@ -145,6 +145,9 @@ angular.module('mongemadreApp')
           loginDetectedFunction(response);
         });
         return deferred.promise;
+      },
+      postFoto: function(){
+
       }
     };
   });

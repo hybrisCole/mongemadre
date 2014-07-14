@@ -34,12 +34,19 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  }).run(function($rootScope, $location, facebookService,FBUSERID){
-    facebookService.init().then(function(){
-      $rootScope.$on('$routeChangeStart',function(){
-        if((FBUSERID.id === -1) && ($location.path() !== '/')){
-          $location.path('/main');
-        }
+  }).run(function($rootScope, $location, facebookService,FBUSERID,FIREBASEURL){
+    var authRef = new Firebase(FIREBASEURL);
+    var auth = new FirebaseSimpleLogin(authRef,function(){
+      facebookService.init().then(function(){
+        $rootScope.$on('$routeChangeStart',function(){
+          if((FBUSERID.id === -1) && ($location.path() !== '/')){
+            $location.path('/main');
+          }
+        });
       });
+    });
+    auth.login('password', {
+      email: 'acpii2005@gmail.com',
+      password: '123Queso'
     });
   });
