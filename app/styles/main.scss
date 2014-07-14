@@ -46,8 +46,27 @@ body{
 	margin : 0 auto; 
 }
 
+.perfil{
+	border : 2px solid #9cbc27;
+}
+
 .info{
 	margin-top : 15px;
+	h1{
+		text-align : center;
+		margin     : 0;
+		&:nth-child(3){
+			margin-bottom : 15px; 
+		}  
+		span{
+			color : #9cbc27;
+		}
+	}
+	.sep{
+		width         : 100%;
+		border        : 1px solid #000; 
+		margin-bottom : 15px; 
+	}
 	.mongeForm{
 		margin-left : 25px; 
 		input{
@@ -55,7 +74,7 @@ body{
 			height       : 30px; 
 			width        : 320px;
 			font-size    : 19px;  
-			margin-left  : 15px; 
+			margin-left  : 22px; 
 			padding-left : 10px; 
 		}
 		.title{
