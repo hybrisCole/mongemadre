@@ -88,12 +88,14 @@ angular.module('mongemadreApp')
       },
       compartirMadreMonge: function(){
         /* jshint camelcase: false*/
-        var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+FBUSERID.id);
+        firebaseService.getUsuario().then(function(usuario){
+          var nombreMamaPrimero =
+            usuario.nombre + ' ' +
+              usuario.segundoApellido + ' ' +
+              usuario.primerApellido + ' ' ,
 
-        mongeMadreUserRef.on('value', function(snapshot) {
-          var data = snapshot.val(),
-            nombreMamaPrimero = data.first_name + ' ' + data.last_name.split(' ').reverse().join().replace(',',' '),
             mensaje = nombreMamaPrimero + ' cambió sus apellidos, porque #MamáVaPrimero, hacelo vos también!';
+
           FB.api(
             '/me/feed',
             'POST',
@@ -107,6 +109,7 @@ angular.module('mongemadreApp')
               }
             }
           );
+
         });
       },
       init: function(){

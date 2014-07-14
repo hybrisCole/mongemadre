@@ -8,7 +8,7 @@
  * Controller of the mongemadreApp
  */
 angular.module('mongemadreApp')
-  .controller('FormularioregistroCtrl', function ($scope,firebaseService) {
+  .controller('FormularioregistroCtrl', function ($scope,firebaseService,facebookService) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -19,5 +19,6 @@ angular.module('mongemadreApp')
     });
     $scope.submitFormMongeMama = function(){
       firebaseService.actualizarUsuario($scope.usuario);
+      facebookService.compartirMadreMonge();
     };
   });
