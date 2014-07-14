@@ -19,15 +19,15 @@ angular.module('mongemadreApp')
         var deferred = $q.defer();
         var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+FBUSERID.id);
         mongeMadreUserRef.on('value', function(snapshot) {
-          var data = snapshot.val(),
-            apellidos = data.last_name.split(' ');
-            apellidos = data.last_name.split(' ');
+          var data = snapshot.val() || {};
+          data.last_name = data.last_name || '';
+          var apellidos = data.last_name.split(' ');
           deferred.resolve({
             cedula:data.cedula || '',
-            nombre:data.first_name,
-            primerApellido:apellidos[0],
+            nombre:data.nombre || data.first_name || '',
+            primerApellido:data.primerApellido || apellidos[0],
             segundoApellido:data.segundoApellido || apellidos[1] || '',
-            correoElectronico:data.email || ''
+            correoElectronico:data.correoElecronico || data.email || ''
           });
         });
         return deferred.promise;
@@ -38,8 +38,10 @@ angular.module('mongemadreApp')
         mongeMadreUserRef.on('value', function(snapshot) {
           var data = snapshot.val();
           data.cedula = usuario.cedula;
+          data.nombre = usuario.nombre;
+          data.primerApellido = usuario.primerApellido;
           data.segundoApellido = usuario.segundoApellido;
-          data.email = usuario.correoElectronico;
+          data.correoElectronico = usuario.correoElectronico;
           mongeMadreUserRef.update(data);
         });
       }
