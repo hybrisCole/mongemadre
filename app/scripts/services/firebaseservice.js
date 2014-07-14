@@ -33,6 +33,7 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       actualizarUsuario:function(usuario){
+        console.log('llamando a Actualizar Usuario');
         var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+FBUSERID.id);
         mongeMadreUserRef.on('value', function(snapshot) {
           var data = snapshot.val();

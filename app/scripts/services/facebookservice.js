@@ -43,7 +43,7 @@ angular.module('mongemadreApp')
                   //si no tiene cedula, es porque no se ha registrado,
                   // solo en ese caso se guarda
                   if(usuario.cedula===''){
-                    var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+userId);
+                    var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+response.authResponse.userID);
                     mongeMadreUserRef.set(responseMe);
                   }
                   deferred.resolve(responseMe);
