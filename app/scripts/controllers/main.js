@@ -15,7 +15,7 @@ angular.module('mongemadreApp')
       });
     };
     $scope.userid = function(){
-      facebookService.getPictureURL(300,300).then(function(pictureObj){
+      facebookService.getPictureURL(90,90).then(function(pictureObj){
         console.log(pictureObj);
       },function(error){
         console.log(error);

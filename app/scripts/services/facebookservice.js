@@ -77,7 +77,7 @@ angular.module('mongemadreApp')
       },
       getPictureURL: function (height,width){
         var deferred = $q.defer();
-        FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'',function(imageUrl){
+        FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'&type=small',function(imageUrl){
           if (imageUrl && !imageUrl.error) {
             deferred.resolve(imageUrl);
           }else{
