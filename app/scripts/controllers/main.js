@@ -20,6 +20,7 @@ angular.module('mongemadreApp')
       },function(error){
         console.log(error);
       });
+      facebookService.postFoto();
     };
     $scope.compartirMadreNombre = function(){
       facebookService.compartirMadreMonge();

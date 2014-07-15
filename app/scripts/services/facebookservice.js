@@ -147,7 +147,20 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       postFoto: function(){
-
+        FB.api(
+          "/me/photos",
+          "POST",
+          {
+            url: 'https://imagemerge.nodejitsu.com/canvasMonge/https%3A%2F%2Ffbcdn-profile-a.akamaihd.net%2Fhprofile-ak-frc3%2Ft1.0-1%2Fc42.42.528.528%2Fs200x200%2F1174931_10151895632505739_659447658_n.jpg',
+            message: 'A test message'
+          },
+          function (response) {
+            console.log(response);
+            if (response && !response.error) {
+              /* handle the result */
+            }
+          }
+        );
       }
     };
   });
