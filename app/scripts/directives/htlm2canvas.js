@@ -17,38 +17,26 @@ angular.module('mongemadreApp')
 
         var bucket  = new AWS.S3({params: {Bucket:'blaksun'}});
             
-        facebookService.getPictureURL(300,300).then(function(pictureObj){
+        facebookService.getPictureURL(180,180).then(function(pictureObj){
           scope.imageUrl = pictureObj.data.url;
-
-          var c=document.getElementById('myCanvas');
-          var ctx=c.getContext('2d');
-          var imageObj1 = new Image();
-          var imageObj2 = new Image();
-          imageObj1.src = pictureObj.data.url;
-          imageObj2.src = '../images/a.png';
-          imageObj1.onload = function() {
-            ctx.drawImage(imageObj1, 0, 0, 180, 180);
-            imageObj2.onload = function() {
-              ctx.drawImage(imageObj2, 15, 85, 180, 180);
-              var img = c.toDataURL('image/png');
-              //document.write('<img src="' + img + '" width="328" height="526"/>');
-            };
-          };
-
-
-         var params = {
+          html2canvas(putin,{
+            onrendered: function(canvas){
+              var params = {
                 Key         : scope.imgName+'.png', 
                 ContentType : 'image/png', 
-                Body        : dataURItoBlob(c.toDataURL('image/png'))
+                Body        : dataURItoBlob(canvas.toDataURL('image/png'))
               };
 
               bucket.putObject(params, function(err, data){
                 if(err){
                   console.log(err, err.stack);
                 }else{
-                  console.log(data);
+                      console.log(data);
                 }
               });
+            },
+            logging: true
+          });
         },function(error){
         console.log(error);
       });
