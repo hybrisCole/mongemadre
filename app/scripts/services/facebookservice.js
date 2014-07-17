@@ -8,7 +8,8 @@
  * Factory in the mongemadreApp.
  */
 angular.module('mongemadreApp')
-  .factory('facebookService', function ($q, $location,firebaseService,FIREBASEURL,FBUSERID,FBAPPID) {
+  .factory('facebookService', function ($q, $location,
+    firebaseService,FIREBASEURL,FBUSERID,FBAPPID) {
     // Public API here
 
     var facebookLogin = function(userId,accessToken){
@@ -76,6 +77,8 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       getPictureURL: function (height,width){
+        height = height || 95;
+        width = width || 95;
         var deferred = $q.defer();
         FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'&type=small',function(imageUrl){
           if (imageUrl && !imageUrl.error) {
@@ -146,8 +149,36 @@ angular.module('mongemadreApp')
         });
         return deferred.promise;
       },
-      postFoto: function(){
-
+      postFoto: function(url) {
+        var deferred = $q.defer();
+        FB.api('/me/photos','POST',
+          {
+            url: 'https://imagemerge.nodejitsu.com/canvasMonge/'+url,
+            message: 'A test message'
+          },
+          function (response) {
+            if (response && !response.error) {
+              deferred.resolve(response);
+            }else{
+              deferred.reject(response);
+            }
+          }
+        );
+        return deferred.promise;
+      },
+      actualizarFotoPerfil: function(){
+        var that = this;
+        that.getPictureURL().then(function(picture){
+          var uriEncodedPerfil = encodeURIComponent(picture.data.url);
+          console.log(postFoto);
+          that.postFoto(uriEncodedPerfil).then(function(data){
+            console.log(data);
+          },function(err){
+            console.log(err);
+          });
+        },function(err){
+          console.log(err);
+        });
       }
     };
   });
