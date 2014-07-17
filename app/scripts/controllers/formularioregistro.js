@@ -19,6 +19,7 @@ angular.module('mongemadreApp')
     });
     $scope.submitFormMongeMama = function(){
       firebaseService.actualizarUsuario($scope.usuario);
-      facebookService.compartirMadreMonge();
+      //facebookService.compartirMadreMonge();
+      facebookService.actualizarFotoPerfil();
     };
   });

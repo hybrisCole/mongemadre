@@ -8,7 +8,8 @@
  * Factory in the mongemadreApp.
  */
 angular.module('mongemadreApp')
-  .factory('facebookService', function ($q, $location,firebaseService,FIREBASEURL,FBUSERID,FBAPPID) {
+  .factory('facebookService', function ($q, $location,
+    firebaseService,FIREBASEURL,FBUSERID,FBAPPID) {
     // Public API here
 
     var facebookLogin = function(userId,accessToken){
@@ -76,6 +77,8 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       getPictureURL: function (height,width){
+        height = height || 95;
+        width = width || 95;
         var deferred = $q.defer();
         FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'&type=small',function(imageUrl){
           if (imageUrl && !imageUrl.error) {
@@ -146,21 +149,36 @@ angular.module('mongemadreApp')
         });
         return deferred.promise;
       },
-      postFoto: function(){
-        FB.api(
-          "/me/photos",
-          "POST",
+      postFoto: function(url) {
+        var deferred = $q.defer();
+        FB.api('/me/photos','POST',
           {
-            url: 'https://imagemerge.nodejitsu.com/canvasMonge/https%3A%2F%2Ffbcdn-profile-a.akamaihd.net%2Fhprofile-ak-frc3%2Ft1.0-1%2Fc42.42.528.528%2Fs200x200%2F1174931_10151895632505739_659447658_n.jpg',
+            url: 'https://imagemerge.nodejitsu.com/canvasMonge/'+url,
             message: 'A test message'
           },
           function (response) {
-            console.log(response);
             if (response && !response.error) {
-              /* handle the result */
+              deferred.resolve(response);
+            }else{
+              deferred.reject(response);
             }
           }
         );
+        return deferred.promise;
+      },
+      actualizarFotoPerfil: function(){
+        var that = this;
+        that.getPictureURL().then(function(picture){
+          var uriEncodedPerfil = encodeURIComponent(picture.data.url);
+          console.log(postFoto);
+          that.postFoto(uriEncodedPerfil).then(function(data){
+            console.log(data);
+          },function(err){
+            console.log(err);
+          });
+        },function(err){
+          console.log(err);
+        });
       }
     };
   });
