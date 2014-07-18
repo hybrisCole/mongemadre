@@ -33,6 +33,7 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       actualizarUsuario:function(usuario){
+        var defer = $q.defer();
         var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+FBUSERID.id);
         mongeMadreUserRef.on('value', function(snapshot) {
           var data = snapshot.val();
@@ -42,7 +43,9 @@ angular.module('mongemadreApp')
           data.segundoApellido = usuario.segundoApellido;
           data.correoElectronico = usuario.correoElectronico;
           mongeMadreUserRef.update(data);
+          defer.resolve(data);
         });
+        return defer.promise;
       }
     };
   });

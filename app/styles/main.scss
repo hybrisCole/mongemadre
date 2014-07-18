@@ -113,3 +113,17 @@ body{
 	position: relative;
 	line-height: 28px;    
 }
+
+.home{
+	text-align : center; 
+	h1{
+		text-align : center; 
+	}
+	.face{
+		background-color : #5b74a8;
+		border           : 1px solid #3b5998; 
+		color            : #fff;
+		padding          : 10px;
+		text-decoration  : none; 
+	}
+}

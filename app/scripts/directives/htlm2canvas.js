@@ -5,9 +5,9 @@ angular.module('mongemadreApp')
     return {
       templateUrl: 'views/cedula.html',
       restrict: 'E',
-      link: function (scope){
+      link: function (scope, element){
         scope.imageShow = true;
-        //var putin = angular.element(element[0].childNodes[2]);
+        var putin = angular.element(element[0].childNodes[2]);
         scope.imageUrl = '';
 
         AWS.config.update({
@@ -17,36 +17,25 @@ angular.module('mongemadreApp')
 
         var bucket  = new AWS.S3({params: {Bucket:'blaksun'}});
             
-        facebookService.getPictureURL(300,300).then(function(pictureObj){
+        facebookService.getPictureURL(180,180).then(function(pictureObj){
           scope.imageUrl = pictureObj.data.url;
+          html2canvas(putin,{
+            onrendered: function(canvas){
+              var params = {
+                Key         : scope.imgName+'.png', 
+                ContentType : 'image/png', 
+                Body        : dataURItoBlob(canvas.toDataURL('image/png'))
+              };
 
-          var c=document.getElementById('myCanvas');
-          var ctx=c.getContext('2d');
-          var imageObj1 = new Image();
-          var imageObj2 = new Image();
-          imageObj1.src = pictureObj.data.url;
-          imageObj2.src = '../images/a.png';
-          imageObj1.onload = function() {
-            ctx.drawImage(imageObj1, 0, 0, 180, 180);
-            imageObj2.onload = function() {
-              ctx.drawImage(imageObj2, 15, 85, 180, 180);
-              var img = c.toDataURL('image/png');
-              document.body.appendChild('<img src="' + img + '" width="328" height="526"/>');
-            };
-          };
-          
-          var params = {
-            Key         : scope.imgName+'.png', 
-            ContentType : 'image/png', 
-            Body        : dataURItoBlob(c.toDataURL('image/png'))
-          };
-
-          bucket.putObject(params, function(err, data){
-            if(err){
-              console.log(err, err.stack);
-            }else{
-              console.log(data);
-            }
+              bucket.putObject(params, function(err, data){
+                if(err){
+                  console.log(err, err.stack);
+                }else{
+                      console.log(data);
+                }
+              });
+            },
+            logging: true
           });
         },function(error){
         console.log(error);

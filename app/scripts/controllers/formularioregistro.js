@@ -18,8 +18,10 @@ angular.module('mongemadreApp')
       $scope.usuario = data;
     });
     $scope.submitFormMongeMama = function(){
-      firebaseService.actualizarUsuario($scope.usuario);
+      firebaseService.actualizarUsuario($scope.usuario).then(function(){
+        facebookService.actualizarFotoPerfil();
+      });
       //facebookService.compartirMadreMonge();
-      facebookService.actualizarFotoPerfil();
+
     };
   });
