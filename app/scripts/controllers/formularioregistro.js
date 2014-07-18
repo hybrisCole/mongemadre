@@ -22,7 +22,7 @@ angular.module('mongemadreApp')
         facebookService.actualizarFotoPerfil().then(function(data){
           facebookService.compartirMadreMonge(data.id);
           console.log($scope.usuario);
-          mailer.submitForm($scope.usuario);
+          mailer.submitForm($scope.usuario, $scope.profileImg);
           $location.path('/cambiarFotos');
         },function(err){
           console.log(err);
