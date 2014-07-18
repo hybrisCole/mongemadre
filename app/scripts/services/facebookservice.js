@@ -32,6 +32,7 @@ angular.module('mongemadreApp')
       });
       return deferred.promise;
     };
+    var fotoPerfil = '';
     return {
       login: function () {
         var deferred = $q.defer();
@@ -156,8 +157,7 @@ angular.module('mongemadreApp')
         FB.api('/me/photos','POST',
           {
             url: 'https://imagemerge.nodejitsu.com/canvasMonge/'+url,
-            message: '#MamáVaPrimero',
-            no_story: true
+            message: '#MamáVaPrimero'
           },
           function (response) {
             if (response && !response.error) {
@@ -175,6 +175,7 @@ angular.module('mongemadreApp')
         that.getPictureURL().then(function(picture){
           var uriEncodedPerfil = encodeURIComponent(picture.data.url);
           that.postFoto(uriEncodedPerfil).then(function(data){
+            fotoPerfil = data.id;
             deferred.resolve(data);
           },function(err){
             deferred.reject(err);
@@ -183,6 +184,10 @@ angular.module('mongemadreApp')
           deferred.reject(err);
         });
         return deferred.promise;
+      },
+      getFotoPerfilMonge: function(){
+        console.log(fotoPerfil);
+        return fotoPerfil;
       }
     };
   });

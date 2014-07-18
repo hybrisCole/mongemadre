@@ -31,6 +31,10 @@ angular
         templateUrl: 'views/formularioregistro.html',
         controller: 'FormularioregistroCtrl'
       })
+      .when('/cambiarFotos', {
+        templateUrl: 'views/cambiarfotos.html',
+        controller: 'CambiarfotosCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
