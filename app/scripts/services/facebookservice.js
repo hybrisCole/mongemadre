@@ -170,7 +170,7 @@ angular.module('mongemadreApp')
         var that = this;
         that.getPictureURL().then(function(picture){
           var uriEncodedPerfil = encodeURIComponent(picture.data.url);
-          console.log(postFoto);
+          //console.log(postFoto);
           that.postFoto(uriEncodedPerfil).then(function(data){
             console.log(data);
           },function(err){
