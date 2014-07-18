@@ -27,7 +27,8 @@ angular.module('mongemadreApp')
             nombre:data.nombre || data.first_name || '',
             primerApellido:data.primerApellido || apellidos[0],
             segundoApellido:data.segundoApellido || apellidos[1] || '',
-            correoElectronico:data.correoElecronico || data.email || ''
+            correoElectronico:data.correoElecronico || data.email || '',
+            urlPerfil:data.link || ''
           });
         });
         return deferred.promise;
