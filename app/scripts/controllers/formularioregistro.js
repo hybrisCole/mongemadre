@@ -9,14 +9,21 @@
  */
 angular.module('mongemadreApp')
   .controller('FormularioregistroCtrl', function ($scope,$location,
-                                                  firebaseService,facebookService) {
+                                                  firebaseService,facebookService,mailer) {
     firebaseService.getUsuario().then(function(data){
       $scope.usuario = data;
+    });
+
+    facebookService.getPictureURL().then(function(data){
+      $scope.profileImg = data.data.url;
+      console.log($scope.profileImg);
     });
     $scope.submitFormMongeMama = function(){
       firebaseService.actualizarUsuario($scope.usuario).then(function(){
         facebookService.actualizarFotoPerfil().then(function(data){
           facebookService.compartirMadreMonge(data.id);
+          console.log($scope.usuario);
+          mailer.submitForm($scope.usuario);
           $location.path('/cambiarFotos');
         },function(err){
           console.log(err);
