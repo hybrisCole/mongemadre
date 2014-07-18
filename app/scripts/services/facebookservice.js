@@ -89,7 +89,7 @@ angular.module('mongemadreApp')
         });
         return deferred.promise;
       },
-      compartirMadreMonge: function(){
+      compartirMadreMonge: function(imageId){
         /* jshint camelcase: false*/
         firebaseService.getUsuario().then(function(usuario){
           var nombreMamaPrimero =
@@ -104,7 +104,8 @@ angular.module('mongemadreApp')
             'POST',
             {
               'message': mensaje,
-              'link':'https://www.facebook.com/amatistadigitalcr/app_1441805799429811'
+              'link':'https://www.facebook.com/amatistadigitalcr/app_1441805799429811',
+              'object_attachment':imageId
             },
             function (response) {
               if (response && !response.error) {
@@ -150,11 +151,13 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       postFoto: function(url) {
+        /* jshint camelcase: false*/
         var deferred = $q.defer();
         FB.api('/me/photos','POST',
           {
             url: 'https://imagemerge.nodejitsu.com/canvasMonge/'+url,
-            message: 'A test message'
+            message: '#MamáVaPrimero',
+            no_story: true
           },
           function (response) {
             if (response && !response.error) {
@@ -167,17 +170,19 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       actualizarFotoPerfil: function(){
+        var deferred = $q.defer();
         var that = this;
         that.getPictureURL().then(function(picture){
           var uriEncodedPerfil = encodeURIComponent(picture.data.url);
           that.postFoto(uriEncodedPerfil).then(function(data){
-            console.log(data);
+            deferred.resolve(data);
           },function(err){
-            console.log(err);
+            deferred.reject(err);
           });
         },function(err){
-          console.log(err);
+          deferred.reject(err);
         });
+        return deferred.promise;
       }
     };
   });
