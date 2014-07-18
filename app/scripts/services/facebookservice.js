@@ -78,8 +78,8 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       getPictureURL: function (height,width){
-        height = height || 95;
-        width = width || 95;
+        height = height || 300;
+        width = width || 300;
         var deferred = $q.defer();
         FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'&type=small',function(imageUrl){
           if (imageUrl && !imageUrl.error) {
