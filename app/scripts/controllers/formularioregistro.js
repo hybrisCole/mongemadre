@@ -16,7 +16,6 @@ angular.module('mongemadreApp')
 
     facebookService.getPictureURL().then(function(data){
       $scope.profileImg = data.data.url;
-      console.log($scope.profileImg);
     });
     $scope.submitFormMongeMama = function(){
       firebaseService.actualizarUsuario($scope.usuario).then(function(){
