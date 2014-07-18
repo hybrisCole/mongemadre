@@ -170,8 +170,9 @@ angular.module('mongemadreApp')
         var that = this;
         that.getPictureURL().then(function(picture){
           var uriEncodedPerfil = encodeURIComponent(picture.data.url);
-          console.log(postFoto);
           that.postFoto(uriEncodedPerfil).then(function(data){
+            var win = window.open('http://www.facebook.com/photo.php?fbid='+data.id+'&makeprofile=1', '_blank');
+            win.focus();
             console.log(data);
           },function(err){
             console.log(err);
