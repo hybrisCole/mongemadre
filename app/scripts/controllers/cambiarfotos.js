@@ -11,6 +11,8 @@ angular.module('mongemadreApp')
   .controller('CambiarfotosCtrl', function ($scope,facebookService,firebaseService) {
     $scope.fotoPerfilMonge = facebookService.getFotoPerfilMonge();
 
+    $scope.fotoCoverMonge = facebookService.getFotoCoverMonge();
+
     firebaseService.getUsuario().then(function(data){
       $scope.usuario = data;
     });

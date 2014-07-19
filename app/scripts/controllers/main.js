@@ -16,7 +16,6 @@ angular.module('mongemadreApp')
     };
     $scope.userid = function(){
       facebookService.getPictureURL(90,90).then(function(pictureObj){
-        console.log(pictureObj);
       },function(error){
         console.log(error);
       });

@@ -169,7 +169,6 @@ angular.module('mongemadreApp')
       postFoto: function(url,pathBackend) {
         pathBackend = pathBackend || 'https://imagemerge.nodejitsu.com/canvasMonge/';
         /* jshint camelcase: false*/
-        console.log(pathBackend+url);
         var deferred = $q.defer();
         FB.api('/me/photos','POST',
           {
@@ -209,7 +208,7 @@ angular.module('mongemadreApp')
         this.getCoverPictureURL().then(function(data){
           var uriEncodedCover = encodeURIComponent(data.cover.source)+'/Alberto/Cole/Palacios';
           that.postFoto(uriEncodedCover,'https://imagemerge.nodejitsu.com/canvasMongeCover/').then(function(data){
-              fotoPerfil = data.id;
+              fotoCover = data.id;
               deferred.resolve(data);
           },function(error){
             deferred.reject(error);
