@@ -19,15 +19,15 @@ angular.module('mongemadreApp')
     });
     $scope.submitFormMongeMama = function(){
       firebaseService.actualizarUsuario($scope.usuario).then(function(){
-        facebookService.actualizarFotoPerfil().then(function(data){
-          facebookService.actualizarFotoCover().then(function(){
-            facebookService.compartirMadreMonge(data.id);
+        //facebookService.actualizarFotoPerfil().then(function(){
+          //facebookService.actualizarFotoCover().then(function(){
+            facebookService.compartirMadreMonge();
             mailer.submitForm($scope.usuario, $scope.profileImg);
-            $location.path('/cambiarFotos');
-          });
-        },function(err){
-          console.log(err);
-        });
+            //$location.path('/cambiarFotos');
+          //});
+        //},function(err){
+        //  console.log(err);
+        //});
       });
     };
   });
