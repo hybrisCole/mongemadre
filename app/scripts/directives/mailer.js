@@ -5,8 +5,7 @@ angular.module('mongemadreApp')
     return {
       submitForm : function(info, profile){
           var nombre = info.nombre +' '+ info.primerApellido;
-          var urlImg = 'https://imagemerge.nodejitsu.com/cedulaMonge/'+encodeURIComponent(profile)+'/'+info.nombre+'/'+info.primerApellido+'/'+info.segundoApellido+'/'+info.cedula;
-          console.log(urlImg);
+          var urlImg = 'https://imagemerge.nodejitsu.com/cedulaMonge/'+encodeURIComponent(profile.replace(/\//g,'{{slash}}'))+'/'+info.nombre+'/'+info.primerApellido+'/'+info.segundoApellido+'/'+info.cedula;
           var defer = $q.defer();
           $http({
             method: 'POST',
