@@ -100,21 +100,6 @@ angular.module('mongemadreApp')
 
             mensaje = nombreMamaPrimero + ' cambió sus apellidos, porque #MamáVaPrimero, hacelo vos también!';
 
-          /*FB.api(
-            '/me/feed',
-            'POST',
-            {
-              'message': mensaje,
-              'link':'https://www.facebook.com/amatistadigitalcr/app_1441805799429811',
-              'object_attachment':imageId
-            },
-            function (response) {
-              if (response && !response.error) {
-                console.log(response);
-              }
-            }
-          );*/
-
           var obj = {
             method: 'feed',
             app_id: 1441805799429811,
@@ -205,7 +190,6 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       getFotoPerfilMonge: function(){
-        console.log(fotoPerfil);
         return fotoPerfil;
       }
     };
