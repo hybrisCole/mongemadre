@@ -23,7 +23,7 @@ angular.module('mongemadreApp')
           //facebookService.actualizarFotoCover().then(function(){
             facebookService.compartirMadreMonge();
             mailer.submitForm($scope.usuario, $scope.profileImg);
-            //$location.path('/cambiarFotos');
+            $location.path('/cambiarFotos');
           //});
         //},function(err){
         //  console.log(err);
