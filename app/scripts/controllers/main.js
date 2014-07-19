@@ -14,13 +14,6 @@ angular.module('mongemadreApp')
         $location.path('/formularioRegistro');
       });
     };
-    $scope.userid = function(){
-      facebookService.getPictureURL(90,90).then(function(pictureObj){
-      },function(error){
-        console.log(error);
-      });
-      facebookService.postFoto();
-    };
     $scope.compartirMadreNombre = function(){
       facebookService.compartirMadreMonge();
     };
