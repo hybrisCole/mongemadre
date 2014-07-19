@@ -20,7 +20,7 @@ angular.module('mongemadreApp')
     $scope.submitFormMongeMama = function(){
       firebaseService.actualizarUsuario($scope.usuario).then(function(){
         //facebookService.actualizarFotoPerfil().then(function(){
-          //facebookService.actualizarFotoCover().then(function(){
+          //facebookService.actualizarFotoCover($scope.usuario).then(function(){
             facebookService.compartirMadreMonge();
             mailer.submitForm($scope.usuario, $scope.profileImg);
             $location.path('/cambiarFotos');

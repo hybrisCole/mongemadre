@@ -202,11 +202,11 @@ angular.module('mongemadreApp')
         });
         return deferred.promise;
       },
-      actualizarFotoCover:function(){
+      actualizarFotoCover:function(usuario){
         var deferred = $q.defer(),
           that = this;
         this.getCoverPictureURL().then(function(data){
-          var uriEncodedCover = encodeURIComponent(data.cover.source)+'/Alberto/Cole/Palacios';
+          var uriEncodedCover = encodeURIComponent(data.cover.source)+'/'+usuario.nombre+'/'+usuario.primerApellido+'/'+usuario.segundoApellido;
           that.postFoto(uriEncodedCover,'https://imagemerge.nodejitsu.com/canvasMongeCover/').then(function(data){
               fotoCover = data.id;
               deferred.resolve(data);
