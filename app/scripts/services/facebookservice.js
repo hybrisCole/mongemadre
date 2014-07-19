@@ -116,7 +116,7 @@ angular.module('mongemadreApp')
             method: 'feed',
             app_id: 1441805799429811,
             link: 'https://www.facebook.com/amatistadigitalcr/app_1441805799429811',
-            picture: 'https://s3.amazonaws.com/monge/monge-dele-viaje.jpg',
+            picture: 'https://s3.amazonaws.com/blaksun/mama.jpg',
             name: mensaje,
             caption: 'https://www.facebook.com/amatistadigitalcr/app_1441805799429811',
             description: 'Promoción Monge día de la madre, participe y gane fabulosos premios.'
