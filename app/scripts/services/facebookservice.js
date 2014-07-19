@@ -32,7 +32,8 @@ angular.module('mongemadreApp')
       });
       return deferred.promise;
     };
-    var fotoPerfil = '';
+    var fotoPerfil = '',
+        fotoCover = '';
     return {
       login: function () {
         var deferred = $q.defer();
@@ -77,13 +78,18 @@ angular.module('mongemadreApp')
 
         return deferred.promise;
       },
-      getCoverPhotoInfo: function(){
+      getCoverPictureURL: function(){
+        var deferred = $q.defer();
         FB.api('/me',{fields: 'cover'},function(responseMe){
-          console.log(responseMe);
+          if (responseMe && !responseMe.error) {
+            deferred.resolve(responseMe);
+          }else{
+            deferred.reject(responseMe);
+          }
         });
+        return deferred.promise;
       },
       getPictureURL: function (height,width){
-        this.getCoverPhotoInfo();
         height = height || 300;
         width = width || 300;
         var deferred = $q.defer();
@@ -160,12 +166,14 @@ angular.module('mongemadreApp')
         });
         return deferred.promise;
       },
-      postFoto: function(url) {
+      postFoto: function(url,pathBackend) {
+        pathBackend = pathBackend || 'https://imagemerge.nodejitsu.com/canvasMonge/';
         /* jshint camelcase: false*/
+        console.log(pathBackend+url);
         var deferred = $q.defer();
         FB.api('/me/photos','POST',
           {
-            url: 'https://imagemerge.nodejitsu.com/canvasMonge/'+url,
+            url: pathBackend+url,
             message: '#MamáVaPrimero',
             no_story:false
           },
@@ -195,8 +203,27 @@ angular.module('mongemadreApp')
         });
         return deferred.promise;
       },
+      actualizarFotoCover:function(){
+        var deferred = $q.defer(),
+          that = this;
+        this.getCoverPictureURL().then(function(data){
+          var uriEncodedCover = encodeURIComponent(data.cover.source)+'/Alberto/Cole/Palacios';
+          that.postFoto(uriEncodedCover,'https://imagemerge.nodejitsu.com/canvasMongeCover/').then(function(data){
+              fotoPerfil = data.id;
+              deferred.resolve(data);
+          },function(error){
+            deferred.reject(error);
+          });
+        },function(err){
+          deferred.reject(err);
+        });
+        return deferred.promise;
+      },
       getFotoPerfilMonge: function(){
         return fotoPerfil;
+      },
+      getFotoCoverMonge: function(){
+        return fotoCover;
       }
     };
   });
