@@ -87,19 +87,20 @@ body{
 		margin-left : 25px; 
 		color       : #FF3232; 
 		margin-top  : 10px; 
+		width       : 400px;
 	}
 	.submit-btn{
 		button, a{
-			border           : 1px solid #000; 
+			border           : 1px solid #9cbc27;
 			padding          : 5px;
 			font-size        : 15px;
-			background-color : #9cbc27; 
+			background-color : #fff; 
 			cursor           : pointer;
-            text-decoration  : none;
-            color:#fff;
+      text-decoration  : none;
+      color:#9cbc27;
 			&:hover{
-				background-color : #fff; 
-				color            : #9cbc27;
+				background-color : #9cbc27; 
+				color            : #fff;
 				border           : 1px solid #9cbc27;
 			}   
 		}
@@ -126,11 +127,18 @@ body{
 		text-align : center; 
 	}
 	.face{
-		background-color : #5b74a8;
+		position         : relative;
+		top              : 100px;
+		background-color : #fff;
 		border           : 1px solid #3b5998; 
-		color            : #fff;
+		color            : #3b5998;
 		padding          : 10px;
 		text-decoration  : none; 
+		font-size        : 35px; 
+		&:hover{
+			background-color : #5b74a8; 
+			color: #fff;
+		}
 	}
 }
 
@@ -138,4 +146,12 @@ body{
 	h2{
 		text-align : center; 
 	}
+}
+
+.verde{
+	color : #9cbc27;
+}
+
+.morefont{
+	font-size : 25px!important; 
 }
