@@ -172,7 +172,6 @@ angular.module('mongemadreApp')
       postFoto: function(url) {
         /* jshint camelcase: false*/
         var deferred = $q.defer();
-        console.log('https://imagemerge.nodejitsu.com/canvasMonge/'+url);
         FB.api('/me/photos','POST',
           {
             url: 'https://imagemerge.nodejitsu.com/canvasMonge/'+url,

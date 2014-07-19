@@ -43,6 +43,7 @@ angular.module('mongemadreApp')
           data.primerApellido = usuario.primerApellido;
           data.segundoApellido = usuario.segundoApellido;
           data.correoElectronico = usuario.correoElectronico;
+          data.email = usuario.correoElectronico;
           mongeMadreUserRef.update(data);
           defer.resolve(data);
         });
