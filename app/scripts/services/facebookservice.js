@@ -77,7 +77,13 @@ angular.module('mongemadreApp')
 
         return deferred.promise;
       },
+      getCoverPhotoInfo: function(){
+        FB.api('/me',{fields: 'cover'},function(responseMe){
+          console.log(responseMe);
+        });
+      },
       getPictureURL: function (height,width){
+        this.getCoverPhotoInfo();
         height = height || 300;
         width = width || 300;
         var deferred = $q.defer();
