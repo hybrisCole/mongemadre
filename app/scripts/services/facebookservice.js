@@ -90,7 +90,7 @@ angular.module('mongemadreApp')
         });
         return deferred.promise;
       },
-      compartirMadreMonge: function(imageId){
+      compartirMadreMonge: function(){
         /* jshint camelcase: false*/
         firebaseService.getUsuario().then(function(usuario){
           var nombreMamaPrimero =
@@ -100,7 +100,7 @@ angular.module('mongemadreApp')
 
             mensaje = nombreMamaPrimero + ' cambió sus apellidos, porque #MamáVaPrimero, hacelo vos también!';
 
-          FB.api(
+          /*FB.api(
             '/me/feed',
             'POST',
             {
@@ -113,7 +113,25 @@ angular.module('mongemadreApp')
                 console.log(response);
               }
             }
-          );
+          );*/
+
+          var obj = {
+            method: 'feed',
+            app_id: 1441805799429811,
+            link: 'https://www.facebook.com/amatistadigitalcr/app_1441805799429811',
+            picture: 'https://s3.amazonaws.com/monge/monge-dele-viaje.jpg',
+            name: mensaje,
+            caption: 'https://www.facebook.com/amatistadigitalcr/app_1441805799429811',
+            description: 'Promoción Monge día de la madre, participe y gane fabulosos premios.'
+          };
+
+          FB.ui(obj, function(response) {
+            if (response && !response.error_code) {
+          
+            } else {
+              console.log('Error while posting.');
+            }
+          });
 
         });
       },
