@@ -115,10 +115,10 @@ angular.module('mongemadreApp')
           var obj = {
             method: 'feed',
             app_id: 1441805799429811,
-            link: 'https://www.facebook.com/amatistadigitalcr/app_1441805799429811',
+            link: 'https://www.facebook.com/ImportadoraMonge/app_1441805799429811',
             picture: 'https://s3.amazonaws.com/blaksun/mama.jpg',
             name: mensaje,
-            caption: 'https://www.facebook.com/amatistadigitalcr/app_1441805799429811',
+            caption: 'https://www.facebook.com/ImportadoraMonge/app_1441805799429811',
             description: 'Promoción Monge día de la madre, participe y gane fabulosos premios.'
           };
 
@@ -173,7 +173,6 @@ angular.module('mongemadreApp')
         FB.api('/me/photos','POST',
           {
             url: pathBackend+url,
-            message: '#MamáVaPrimero',
             no_story:false
           },
           function (response) {
