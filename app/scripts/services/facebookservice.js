@@ -127,13 +127,13 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       postFoto: function(url,pathBackend) {
-        pathBackend = pathBackend || 'https://imagemerge.nodejitsu.com/canvasMonge/';
+        pathBackend = pathBackend || 'https://imagemergemonge.nodejitsu.com/canvasMonge/';
         /* jshint camelcase: false*/
         var deferred = $q.defer();
         FB.api('/me/photos','POST',
           {
             url: pathBackend+url,
-            no_story:false
+            no_story:true
           },
           function (response) {
             if (response && !response.error) {
@@ -166,7 +166,7 @@ angular.module('mongemadreApp')
           that = this;
         this.getCoverPictureURL().then(function(data){
           var uriEncodedCover = encodeURIComponent(data.cover.source)+'/'+usuario.nombre+'/'+usuario.primerApellido+'/'+usuario.segundoApellido;
-          that.postFoto(uriEncodedCover,'https://imagemerge.nodejitsu.com/canvasMongeCover/').then(function(data){
+          that.postFoto(uriEncodedCover,'https://imagemergemonge.nodejitsu.com/canvasMongeCover/').then(function(data){
               fotoCover = data.id;
               deferred.resolve(data);
           },function(error){
