@@ -155,3 +155,40 @@ body{
 .morefont{
 	font-size : 25px!important; 
 }
+
+
+@media (max-width: 760px) {
+  .container{
+    width: 100%;
+  }
+  .head .container p{
+    margin-right: 20px;
+  }
+  .home h1{
+    font-size: 1.4em;
+  }
+  .left img{
+    margin-left:20px;
+  }
+}
+
+@media (max-width: 384px) {
+  .home .face{
+    font-size:1.6em;
+  }
+  .head .container p{
+    font-size:1.3em;
+  }
+  .home h1{
+    font-size: 1.2em;
+  }
+  .home .face{
+    top:60px;
+  }
+}
+
+@media (max-width: 384px) {
+  .home .face, .home h1{
+    font-size: 1em;
+  }
+}
