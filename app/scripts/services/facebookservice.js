@@ -11,27 +11,6 @@ angular.module('mongemadreApp')
   .factory('facebookService', function ($q, $location,
     firebaseService,FIREBASEURL,FBUSERID,FBAPPID) {
     // Public API here
-
-    var facebookLogin = function(userId,accessToken){
-      var deferred = $q.defer();
-      FBUSERID.set(userId,accessToken);
-      FB.api('/me',function(responseMe){
-        if (responseMe && !responseMe.error) {
-          firebaseService.getUsuario().then(function(usuario){
-            //si no tiene cedula, es porque no se ha registrado,
-            // solo en ese caso se guarda
-            if(usuario.cedula===''){
-              var mongeMadreUserRef = new Firebase(FIREBASEURL+'/'+userId);
-              mongeMadreUserRef.set(responseMe);
-            }
-            deferred.resolve(responseMe);
-          });
-        }else{
-          deferred.reject(responseMe);
-        }
-      });
-      return deferred.promise;
-    };
     var fotoPerfil = '',
         fotoCover = '';
     return {
@@ -133,23 +112,7 @@ angular.module('mongemadreApp')
         });
       },
       init: function(){
-        var deferred = $q.defer(),
-          loginDetectedFunction = function(response){
-          if(response.status === 'connected'){
-            facebookLogin(
-              response.authResponse.userID,
-              response.authResponse.accessToken
-            ).then(function(){
-                deferred.resolve();
-                $location.path('/formularioRegistro');
-            });
-          } else if (response.status === 'not_authorized') {
-            // The person is logged into Facebook, but not your app.
-          } else {
-            // The person is not logged into Facebook, so we're not sure if
-            // they are logged into this app or not.
-          }
-        };
+        var deferred = $q.defer();
 
         FB.init({
           appId: FBAPPID,
@@ -157,13 +120,7 @@ angular.module('mongemadreApp')
           cookie: true,
           xfbml: true
         });
-        FB.Event.subscribe('auth.statusChange', function(response) {
-          loginDetectedFunction(response);
-        });
-
-        FB.getLoginStatus(function(response) {
-          loginDetectedFunction(response);
-        });
+        deferred.resolve();
         return deferred.promise;
       },
       postFoto: function(url,pathBackend) {
