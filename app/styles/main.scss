@@ -178,6 +178,29 @@ body{
   }
 }
 
+@media (max-width: 480px) {
+  .info .mongeForm input{
+    width: auto;
+  }
+  .ultimo{
+    h1{
+      font-size: 1.8em;
+    }
+    h2{
+      font-size:1.2em;
+    }
+    .left,.right{
+      float: none;
+      margin: 5px auto;
+      height: 40px;
+      a{
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+}
+
 @media (max-width: 384px) {
   .home .face{
     font-size:1.6em;
@@ -192,7 +215,6 @@ body{
     top:60px;
   }
   .info .mongeForm input{
-    width: auto;
     font-size:1em;
   }
   .info .mongeForm .title{
@@ -206,23 +228,6 @@ body{
   }
   .info{
     margin:10px;
-  }
-  .ultimo{
-    h1{
-      font-size: 1.8em;
-    }
-    h2{
-      font-size:1.2em;
-    }
-    .left,.right{
-      float: none;
-      margin: 0 auto;
-      height: 40px;
-      a{
-        margin: 0 auto;
-        display: block;
-      }
-    }
   }
 }
 

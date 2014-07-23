@@ -69,11 +69,12 @@ angular.module('mongemadreApp')
         return deferred.promise;
       },
       getPictureURL: function (height,width){
-        height = height || 300;
-        width = width || 300;
+        height = height || 600;
+        width = width || 600;
         var deferred = $q.defer();
         FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'&type=small',function(imageUrl){
           if (imageUrl && !imageUrl.error) {
+            console.log(imageUrl);
             deferred.resolve(imageUrl);
           }else{
             deferred.reject(imageUrl.error);
@@ -100,7 +101,6 @@ angular.module('mongemadreApp')
             caption: 'https://www.facebook.com/ImportadoraMonge/app_1441805799429811',
             description: 'Promoción Monge día de la madre, participe y gane fabulosos premios.'
           };
-          console.log(obj);
           FB.ui(obj, function(response) {
             console.log(response);
             if (response && !response.error_code) {
