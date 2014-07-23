@@ -83,6 +83,7 @@ angular.module('mongemadreApp')
       },
       compartirMadreMonge: function(){
         /* jshint camelcase: false*/
+        console.log('compartirMadreMonge');
         firebaseService.getUsuario().then(function(usuario){
           var nombreMamaPrimero =
             usuario.nombre + ' ' +
@@ -100,8 +101,9 @@ angular.module('mongemadreApp')
             caption: 'https://www.facebook.com/ImportadoraMonge/app_1441805799429811',
             description: 'Promoción Monge día de la madre, participe y gane fabulosos premios.'
           };
-
+          console.log(obj);
           FB.ui(obj, function(response) {
+            console.log(response);
             if (response && !response.error_code) {
           
             } else {
@@ -109,6 +111,8 @@ angular.module('mongemadreApp')
             }
           });
 
+        },function(err){
+          console.log(err);
         });
       },
       init: function(){
