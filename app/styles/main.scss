@@ -170,6 +170,10 @@ body{
   .left img{
     margin-left:20px;
   }
+  .info .sep{
+    width: 95%;
+    margin:0 auto 20px;
+  }
 }
 
 @media (max-width: 384px) {
@@ -185,10 +189,51 @@ body{
   .home .face{
     top:60px;
   }
+  .info .mongeForm input{
+    width: auto;
+    font-size:1.2em;
+  }
+  .info .mongeForm .title{
+    font-size:0.7em;
+  }
+  .bottom-form .errors{
+    width: auto;
+  }
+  .info h1, .ultimo h2{
+    font-size:1.2em;
+  }
+  .info{
+    margin:10px;
+  }
+  .ultimo{
+    h1{
+      font-size: 1.8em;
+    }
+    h2{
+      font-size:1.2em;
+    }
+    .left,.right{
+      float: none;
+      margin: 0 auto;
+      height: 40px;
+      a{
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
 }
 
-@media (max-width: 384px) {
+@media (max-width: 240px) {
   .home .face, .home h1{
     font-size: 1em;
+  }
+  .info .mongeForm input {
+    width: auto;
+    font-size: 0.8em;
+  }
+  .info .mongeForm .title {
+    font-size: .6em;
+    max-width: 26px;
   }
 }
