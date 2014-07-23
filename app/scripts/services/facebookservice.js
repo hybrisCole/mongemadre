@@ -83,7 +83,6 @@ angular.module('mongemadreApp')
       },
       compartirMadreMonge: function(){
         /* jshint camelcase: false*/
-        console.log('compartirMadreMonge');
         firebaseService.getUsuario().then(function(usuario){
           var nombreMamaPrimero =
             usuario.nombre + ' ' +
