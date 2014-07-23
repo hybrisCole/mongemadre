@@ -73,8 +73,8 @@ angular.module('mongemadreApp')
         width = width || 600;
         var deferred = $q.defer();
         FB.api('/'+FBUSERID.id+'/picture?height='+height+'&width='+width+'&type=small',function(imageUrl){
+          console.log(imageUrl);
           if (imageUrl && !imageUrl.error) {
-            console.log(imageUrl);
             deferred.resolve(imageUrl);
           }else{
             deferred.reject(imageUrl.error);
